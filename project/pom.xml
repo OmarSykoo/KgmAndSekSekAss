@@ -78,6 +78,21 @@
         <artifactId>hibernate-core</artifactId>
         <version>6.2.11.Final</version> <!-- Compatible with Spring Boot 3.x -->
     </dependency>
+
+        <!-- Spring Boot Starter Test includes JUnit, Mockito, and other testing tools -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- Optional: If you're using JUnit 5 with Spring -->
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.7.0</version>
+        <scope>test</scope>
+    </dependency>
 </dependencies>
 
 

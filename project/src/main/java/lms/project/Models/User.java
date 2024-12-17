@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
+import lms.project.Enums.*;
 
 @Getter
 @Setter
@@ -21,4 +22,7 @@ public class User {
     private String username;
 
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

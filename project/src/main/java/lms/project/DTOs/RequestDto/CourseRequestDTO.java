@@ -7,5 +7,10 @@ import lombok.Setter;
 @Getter
 public class CourseRequestDTO {
 
-    private String Name;
+    private String title;
+
+    private String description;
+
+    private int duration;
+
 }

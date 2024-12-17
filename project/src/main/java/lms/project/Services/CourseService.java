@@ -1,26 +1,41 @@
 package lms.project.Services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
+import lms.project.Exceptions.InstructorNotFoundException;
 import lms.project.Models.Course;
+import lms.project.Models.User;
 import lms.project.Repositories.CourseRepository;
+import lms.project.Repositories.UserRepository;
 
 @Service
 @RequestScope
 public class CourseService {
     private final CourseRepository courseRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    public CourseService(CourseRepository courseRepository_) {
+    public CourseService(CourseRepository courseRepository_, UserRepository userRepository_) {
         this.courseRepository = courseRepository_;
+        this.userRepository = userRepository_;
     }
 
-    public Course addCourse(String CourseName) {
+    public Course addCourse(
+            String courseTitle,
+            String courseDescription,
+            int courseDuration,
+            Long instructorID)
+            throws InstructorNotFoundException {
         Course course = new Course();
-        course.setName(CourseName);
-        course = this.courseRepository.save(course);
-        return course;
+        course.setTitle(courseTitle);
+        course.setDescription(courseDescription);
+        course.setDuration(courseDuration);
+
+        User instructor = userRepository.findById(instructorID)
+                .orElseThrow(() -> new InstructorNotFoundException("Instructor Not Found"));
+
+        course.setInstructor(instructor);
+        return courseRepository.save(course);
     }
+
 }

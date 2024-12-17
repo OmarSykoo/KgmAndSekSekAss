@@ -7,7 +7,6 @@ import lms.project.DTOs.RequestDto.CourseRequestDTO;
 import lms.project.Models.Course;
 import lms.project.Services.CourseService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,6 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    @Autowired
     CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
@@ -36,7 +34,12 @@ public class CourseController {
 
     @PostMapping()
     public ResponseEntity<Course> postMethodName(@RequestBody CourseRequestDTO CourseDto) {
-        Course course = this.courseService.addCourse(CourseDto.getName());
+        String title = CourseDto.getTitle();
+        String description = CourseDto.getDescription();
+        int duration = CourseDto.getDuration();
+        // fetch the user id from the requesters info
+        long userId = 1;
+        Course course = this.courseService.addCourse(title, description, duration, userId);
         return ResponseEntity.ok(course);
     }
 
