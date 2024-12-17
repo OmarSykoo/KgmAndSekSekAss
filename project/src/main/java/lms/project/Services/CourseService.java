@@ -30,16 +30,20 @@ public class CourseService {
     private final UserCourseRepository userCourseRepository;
     @Autowired
     private final MaterialRepository materialRepository;
+    @Autowired
+    private final NotificationService notificationService;
 
     public CourseService(
             CourseRepository courseRepository_,
             UserRepository userRepository_,
             UserCourseRepository userCourseRepository_,
-            MaterialRepository materialRepository_) {
+            MaterialRepository materialRepository_,
+            NotificationService notificationService_) {
         this.courseRepository = courseRepository_;
         this.userRepository = userRepository_;
         this.userCourseRepository = userCourseRepository_;
         this.materialRepository = materialRepository_;
+        this.notificationService = notificationService_;
     }
 
     public Course addCourse(
@@ -74,6 +78,7 @@ public class CourseService {
         userCourse.setCourse(course);
         userCourse.setUser(user);
         userCourse = userCourseRepository.save(userCourse);
+        this.notificationService.studentEnrolled(StudentID, course);
         return userCourse;
     }
 
