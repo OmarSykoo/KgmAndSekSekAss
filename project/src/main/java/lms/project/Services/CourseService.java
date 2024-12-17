@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
 import lms.project.Exceptions.CourseNotFoundException;
-import lms.project.Exceptions.InstructorNotFoundException;
 import lms.project.Exceptions.UserNotFoundException;
 import lms.project.Models.Course;
 import lms.project.Models.Material;
@@ -17,7 +16,6 @@ import lms.project.Models.UserCourse;
 import lms.project.Repositories.CourseRepository;
 import lms.project.Repositories.MaterialRepository;
 import lms.project.Repositories.UserCourseRepository;
-import lms.project.Repositories.UserRepository;
 
 @Service
 @RequestScope
