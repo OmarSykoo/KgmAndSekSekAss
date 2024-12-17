@@ -18,10 +18,10 @@ public class UserTestService {
 
     @Test
     public void testCreateUser() {
-        User result = userService.AddUser("omar", LocalDate.now(), "Sykoo", "123",
-                Role.INSTRUCTOR);
+        User result = userService.AddUser("Youssef", LocalDate.now(), "jooo", "hoho123",
+                Role.STUDENT);
 
-        assertEquals("omar", result.getName());
+        assertEquals("Youssef", result.getName());
     }
 
     @Test
