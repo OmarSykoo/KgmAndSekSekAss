@@ -1,6 +1,7 @@
 package lms.project.Models;
 
 import jakarta.persistence.*;
+import lms.project.Enums.QuestionEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,8 @@ public class Question {
 
     private String question;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private QuestionEnum type;
 
     private String answer;
 }
