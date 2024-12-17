@@ -12,13 +12,23 @@ import lms.project.Enums.Role;
 import lms.project.Models.User;
 
 @SpringBootTest
-class UserTestService {
+public class UserTestService {
     @Autowired
     private UserService userService;
 
     @Test
     public void testCreateUser() {
-        User result = userService.AddUser("omar", LocalDate.now(), "Sykoo", "123", Role.INSTRUCTOR);
-        assertEquals("Sykooo", "ss");
+        User result = userService.AddUser("omar", LocalDate.now(), "Sykoo", "123",
+                Role.INSTRUCTOR);
+
+        assertEquals("omar", result.getName());
     }
+
+    @Test
+    public void testFetchUserByID() {
+        long id = 1;
+        User result = userService.GetById(id);
+        assertEquals(result.getName(), "omar");
+    }
+
 }
