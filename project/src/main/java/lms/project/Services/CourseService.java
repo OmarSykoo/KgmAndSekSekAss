@@ -25,7 +25,7 @@ public class CourseService {
     @Autowired
     private final CourseRepository courseRepository;
     @Autowired
-    private final UserRepository userRepository;
+    private final UserService userService;
     @Autowired
     private final UserCourseRepository userCourseRepository;
     @Autowired
@@ -35,12 +35,12 @@ public class CourseService {
 
     public CourseService(
             CourseRepository courseRepository_,
-            UserRepository userRepository_,
+            UserService userService_,
             UserCourseRepository userCourseRepository_,
             MaterialRepository materialRepository_,
             NotificationService notificationService_) {
         this.courseRepository = courseRepository_;
-        this.userRepository = userRepository_;
+        this.userService = userService_;
         this.userCourseRepository = userCourseRepository_;
         this.materialRepository = materialRepository_;
         this.notificationService = notificationService_;
@@ -51,14 +51,13 @@ public class CourseService {
             String courseDescription,
             int courseDuration,
             Long instructorID)
-            throws InstructorNotFoundException {
+            throws UserNotFoundException {
         Course course = new Course();
         course.setTitle(courseTitle);
         course.setDescription(courseDescription);
         course.setDuration(courseDuration);
 
-        User instructor = userRepository.findById(instructorID)
-                .orElseThrow(() -> new InstructorNotFoundException("Instructor Not Found"));
+        User instructor = userService.GetById(instructorID);
 
         course.setInstructor(instructor);
         return courseRepository.save(course);
@@ -70,8 +69,7 @@ public class CourseService {
 
     public UserCourse EnrollToCourse(long StudentID, long CourseID)
             throws UserNotFoundException, CourseNotFoundException {
-        User user = this.userRepository.findById(StudentID)
-                .orElseThrow(() -> new UserNotFoundException("Student not found"));
+        User user = this.userService.GetById(StudentID);
         Course course = this.courseRepository.findById(CourseID)
                 .orElseThrow(() -> new CourseNotFoundException("Course not found"));
         UserCourse userCourse = new UserCourse();

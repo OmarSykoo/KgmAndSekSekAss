@@ -12,7 +12,6 @@ import lms.project.Models.Course;
 import lms.project.Models.Notification;
 import lms.project.Models.User;
 import lms.project.Repositories.NotificationRepository;
-import lms.project.Repositories.UserRepository;
 
 @Service
 @RequestScope
@@ -20,21 +19,16 @@ public class NotificationService {
     @Autowired
     private final NotificationRepository notificationRepository;
     @Autowired
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public NotificationService(NotificationRepository notificationRepository, UserRepository userRepository) {
+    public NotificationService(NotificationRepository notificationRepository, UserService userService_) {
         this.notificationRepository = notificationRepository;
-        this.userRepository = userRepository;
-    }
-
-    private User getUserById(long userId, String userType) throws UserNotFoundException {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException(userType + " not found"));
+        this.userService = userService_;
     }
 
     private void notifyUser(long userId, Course course, User relatedUser, NotificationStrategy strategy)
             throws UserNotFoundException {
-        User user = getUserById(userId, "User");
+        User user = userService.GetById(userId);
         Notification notification = strategy.createNotification(user, course, relatedUser);
         notificationRepository.save(notification);
     }
@@ -44,7 +38,7 @@ public class NotificationService {
 
         notifyUser(studentId, courseEnrolled, null, new StudentNotificationStrategy());
 
-        User student = getUserById(studentId, "Student");
+        User student = this.userService.GetById(studentId);
         notifyUser(instructorId, courseEnrolled, student, new InstructorNotificationStrategy());
     }
 
