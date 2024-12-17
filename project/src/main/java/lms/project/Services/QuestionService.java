@@ -9,8 +9,6 @@ import lms.project.Models.Course;
 import lms.project.Models.Question;
 import lms.project.Repositories.CourseRepository;
 
-
-
 @Service
 @RequestScope
 public class QuestionService {
@@ -28,12 +26,12 @@ public class QuestionService {
         q.setQuestion(question);
         q.setAnswer(answer);
         q.setType(type);
-        Course courseID = courseRepository.findById(crsId).orElseThrow(() -> new InstructorNotFoundException("Course Not Found"));
+        Course courseID = courseRepository.findById(crsId)
+                .orElseThrow(() -> new InstructorNotFoundException("Course Not Found"));
         q.setId(crsId);
         q.setCourse(courseID);
 
-        return questionRepository.save(q);
+        return this.questionRepository.save(q);
     }
-
 
 }
