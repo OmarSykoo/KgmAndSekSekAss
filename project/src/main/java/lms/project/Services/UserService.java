@@ -1,8 +1,6 @@
 package lms.project.Services;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,6 @@ import org.springframework.web.context.annotation.RequestScope;
 import lms.project.Enums.Role;
 import lms.project.Exceptions.UserNotFoundException;
 import lms.project.Models.User;
-import lms.project.Models.UserCourse;
 import lms.project.Repositories.UserRepository;
 
 @Service
