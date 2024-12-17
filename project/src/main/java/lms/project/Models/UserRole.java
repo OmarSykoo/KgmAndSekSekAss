@@ -7,19 +7,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Course {
+public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-
-    private String description;
-
-    private int duration;
+    @ManyToOne
+    @JoinColumn(name = "UserID", referencedColumnName = "id")
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "InstructorID", referencedColumnName = "id")
-    private User instructor;
+    @JoinColumn(name = "RoleID", referencedColumnName = "id")
+    private Role role;
 }

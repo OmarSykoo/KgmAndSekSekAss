@@ -3,23 +3,22 @@ package lms.project.Models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
-public class Course {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    private String name;
 
-    private String description;
+    private LocalDate dob;
 
-    private int duration;
+    private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "InstructorID", referencedColumnName = "id")
-    private User instructor;
+    private String password;
 }

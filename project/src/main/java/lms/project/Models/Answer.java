@@ -7,19 +7,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Course {
+public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-
-    private String description;
-
-    private int duration;
-
     @ManyToOne
-    @JoinColumn(name = "InstructorID", referencedColumnName = "id")
-    private User instructor;
+    @JoinColumn(name = "QuestionId", referencedColumnName = "id")
+    private Question question;
+
+    private String answer;
 }
